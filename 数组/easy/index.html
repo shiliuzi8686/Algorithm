@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- <script src="./704.二分查找.js"></script> -->
+    <script>
+        /**
+         * @param {number[]} nums
+         * @param {number} target
+         * @return {number}
+         */
+        var search = function(nums, target) {
+            let l = 0,r = nums.length - 1;
+            debugger
+            while(l <= r){
+                // mid的计算要考虑到数组长度为1、2的情况
+                const mid = l + Math.floor((l + r) / 2)
+                console.log(l,r,Math.floor((l + r) / 2))
+                debugger
+                // if(nums[mid] === target) {
+                //     // console.log(mid)
+                //     return mid
+                // }
+                // if(nums[mid] > target) {
+                //     // console.log(mid) 
+                //     l = mid
+                // }
+                // if(nums[mid] < target) {
+                //     // console.log(mid) 
+                //     r = mid
+                // }
+            }
+        };
+        console.log(search([-1,0,3,5,9,12],9))
+    </script>
+</body>
+</html>

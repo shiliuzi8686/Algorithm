@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const {log} = console
+        var twoSum = function(nums, target) {
+            let resArr = []
+            for(let i = 0;i < nums.length;i++) {
+                const  copyArr = JSON.parse(JSON.stringify(nums))
+                copyArr.splice(i,1)
+                const copyIndex = copyArr.indexOf(target - nums[i])
+                if(copyIndex >= 0 ){
+                    const elseNumIndex = (copyIndex >= 0) && (i <= copyIndex ? copyIndex + 1 : copyIndex)
+                    resArr = [i,elseNumIndex]
+                    return resArr
+                }
+            }
+        }
+        log(twoSum([3,3],6))
+    </script>
+</body>
+</html>
