@@ -11,5 +11,19 @@
  * @return {number}
  */
 var searchInsert = function(nums, target) {
-    
+    let l = 0,r = nums.length - 1
+    let mid
+    while(l <= r){
+        mid = Math.floor((l + r)/2)
+        if(nums[mid] === target){
+            return mid
+        } else if(nums[mid] > target){
+            r = mid - 1
+        } else{
+            l = mid + 1
+        }
+    }
+    // 没找到，得自己加上
+    if(nums[mid] > target) nums.splice(mid - 1,0,target)
+    if(nums[mid] < target) nums.splice(mid + 1,0,target)
 };

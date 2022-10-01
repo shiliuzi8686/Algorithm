@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script src="../字典/字典.js"></script>
+    <script>
+        // 无向图，邻接表 
+        function Graph(){
+            // 属性：顶点（数组）/边（字典）
+            this.vertexes = []   //顶点
+            this.edges = new Dictionary()
+            
+            // 方法
+            // 添加方法
+            // 1.添加顶点的方法
+            Graph.prototype.addVertex = function(v){
+                this.vertexes.push(v)
+                this.edges.set(v,[])
+            }
+            // 2.添加边的方法
+            Graph.prototype.addEdge = function(v1,v2){
+                this.edges.get(v1).push(v2)
+                this.edges.get(v2).push(v1)
+            }
+            // 3.实现toString方法(获取所有的顶点以及其对应的所有的边)
+            Graph.prototype.toString = function(){
+                // 1.定义字符串，保存最终的结果
+                let resStr = ""
+                for(let i = 0;i < this.vertexes.length;i++){
+                    resStr += this.vertexes[i] + '--->' + this.edges.get(this.vertexes[i]).join(' ') + "\n"
+                }
+                return resStr
+            }
+            // 图的遍历
+            // 初始化状态颜色
+            Graph.prototype.initializeColor = function(){
+                const len = this.vertexes.length
+                let colors = []
+                for(let i = 0;i < len;i++){
+                    // 初始颜色为白色
+                    colors[this.vertexes[i]] = 'while'
+                }
+            }
+        }
+        // 测试代码
+        // 1.创建图结构
+        let graph = new Graph()
+        let myVertexes = ['A','B','C','D','E','F','G','H','I']
+        // 2.添加顶点
+        for(let i = 0;i < myVertexes.length;i++){
+            graph.addVertex(myVertexes[i])
+        }
+        // 3.添加边
+        graph.addEdge('A','B')
+        graph.addEdge('A','C')
+        graph.addEdge('A','D')
+        graph.addEdge('C','D')
+        graph.addEdge('C','G')
+        graph.addEdge('D','G')
+        graph.addEdge('D','H')
+        graph.addEdge('B','E')
+        graph.addEdge('B','F')
+        graph.addEdge('E','I')
+        // 4.测试
+        console.log(graph.toString())
+        // alert(graph) //没有调用toString方法，但alert弹出来的是toString的返回值，说明alert会对对象进行隐式转换，底层就是调用toString()方法
+    </script>
+</body>
+</html>
