@@ -7,6 +7,7 @@
     <title>Document</title>
 </head>
 <body>
+    <script src="../队列/queue.js"></script>
     <script src="../字典/字典.js"></script>
     <script>
         // 无向图，邻接表 
@@ -43,8 +44,63 @@
                 let colors = []
                 for(let i = 0;i < len;i++){
                     // 初始颜色为白色
-                    colors[this.vertexes[i]] = 'while'
+                    colors[this.vertexes[i]] = 'white'
                 }
+                return colors
+            }
+            Graph.prototype.bfs = function(initV,handler){
+                // 1.初始化颜色
+                let colors = this.initializeColor()
+                // 2.创建队列
+                const queue = new Queue()
+                // 3.将顶点加入到队列中
+                queue.enqueue(initV)
+                // 4.循环从队列中取出元素
+                while(!queue.isEmpty()){
+                    // 4.1从队列中取出一个一个顶点
+                    let v = queue.dequeue()
+                    // 4.2获取和顶点相连的另外顶点
+                    let vList = this.edges.get(v)
+                    // 4.3将v的颜色设置成灰色
+                    colors[v] = 'gray'
+                    // 4.4遍历所有的顶点，并且加入到队列中
+                    for(let i = 0;i < vList.length;i++){
+                        let e = vList[i]
+                        if(colors[e] === 'white'){
+                            colors[e] = 'gray'
+                            queue.enqueue(e)
+                        }
+                    }
+                    // 4.5访问顶点
+                    handler(v)
+                    // 4.6将顶点设置为黑色
+                    colors[v] = 'black'
+                }
+            }
+            Graph.prototype.dfs = function(initV,handler){
+                // 1.初始化颜色（将所有的顶点的颜色设置为white）
+                let colors = this.initializeColor()
+                // 2.从某个顶点开始依次递归访问
+                // 对于图结构而言，没有根节点，每个顶点的层级是一样的
+                // 因此需要随机指定一个开始访问的顶点
+                // color包含了每个顶点及其访问状态（状态通过颜色来表示）
+                this.dfsVisit(initV,colors,handler)
+            }
+            Graph.prototype.dfsVisit = function(v,colors,handler){
+                // 1.将颜色设置为灰色
+                colors[v] = 'gray'
+                // 2.处理v顶点
+                handler(v)
+                // 3.访问v相连的顶点
+                let vList = this.edges.get(v)
+                for(let i = 0;i < vList.length;i++){
+                    let e = vList[i]
+                    if(colors[e] === 'white'){
+                        this.dfsVisit(e,colors,handler)
+                    }
+                }
+                // 4.将v设置成黑色
+                colors[v] = 'black'
             }
         }
         // 测试代码
@@ -67,8 +123,20 @@
         graph.addEdge('B','F')
         graph.addEdge('E','I')
         // 4.测试
-        console.log(graph.toString())
+        // console.log(graph.toString())
         // alert(graph) //没有调用toString方法，但alert弹出来的是toString的返回值，说明alert会对对象进行隐式转换，底层就是调用toString()方法
+        // 5.测试bfs
+        let result = ''
+        graph.bfs(graph.vertexes[0],function(v){
+            result += v + ' '
+        })
+        console.log(result)
+        // 6.测试dfs（所有的顶点都要被访问到）
+        result = ''
+        graph.dfs(graph.vertexes[0],function(v){
+            result += v + ' '
+        })
+        console.log(result)
     </script>
 </body>
 </html>
