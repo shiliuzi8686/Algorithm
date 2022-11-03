@@ -107,3 +107,51 @@
 // console.log(partition(link1_head,5))
 
 // 删除链表的倒数第N个节点
+
+
+function ListNode(val, next) {
+    this.val = (val===undefined ? 0 : val)
+    this.next = (next===undefined ? null : next)
+}
+let link1_head = new ListNode(1)
+let link1 = link1_head
+link1.next = new ListNode(2)
+link1 = link1.next
+link1.next = new ListNode(3)
+link1 = link1_head
+// 打印链表1
+while(link1){
+    // console.log('链表1---')
+    // console.log(link1.val)
+    link1 = link1.next
+}
+
+let link2_head = new ListNode(9)
+let link2 = link2_head
+link2.next = new ListNode(8)
+link2 = link2.next
+link2.next = new ListNode(7)
+link2 = link2.next
+link2.next = new ListNode(6)
+link2 = link2_head
+// 打印链表2
+while(link2){
+    // console.log('链表2---')
+    // console.log(link2.val)
+    link2 = link2.next
+}
+
+// 两条链表相交测试
+function getIntersectionNode(head1,head2){
+    let p1 = head1
+    let p2 = head2
+    let i = 0
+    while(p1 !== p2){
+        console.log(++i)
+        p1 = p1 === null ? head2 : p1.next
+        p2 = p2 === null ? head1 : p2.next
+    }
+    console.log('p1',p1)
+    console.log('p2',p2)
+}
+// getIntersectionNode(link1_head,link2_head)

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const { log } = console
+        var maxRepeating = function(sequence, word) {
+            let count = 0
+            // let indexFlag = 0
+            while(sequence.includes(word)){
+                count++
+                const flagIndex = sequence.indexOf(word) + word.length
+                sequence = sequence.slice(flagIndex)
+                // indexFlag = sequence.indexOf(word,indexFlag + word.length)
+                // log('indexFlag',indexFlag)
+                // log('includes',sequence.includes(word,indexFlag))
+                log('sequence',sequence)
+            }
+            return count
+        };
+        console.log(maxRepeating("aaabaaaabaaabaaaabaaaabaaaabaaaaba","aaaba"))
+    </script>
+</body>
+</html>
